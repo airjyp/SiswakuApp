@@ -16,9 +16,10 @@ class Siswa extends Model
 
     protected $dates = ['tanggal_lahir'];
 
-    // public function setNamaAttribute($nama){
-    //     return strtolower($nama);
-    // }
+    public function setNamaAttribute($nama){
+        // return strtolower($nama);
+        $this->attributes['nama'] = strtolower($nama);
+    }
 
     public function getNamaAttribute($nama){
         return ucwords($nama);

@@ -1,14 +1,15 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Siswa;
 use Illuminate\Http\Request;
+use App\Siswa;
+use Validator;
 
 class SiswaController extends Controller
 {
     public function index(){
         $siswa = Siswa::orderBy('nisn', 'asc')
-                ->paginate(5);
+                ->paginate(10);
         $jumlah_siswa = Siswa::all()->count();
         return view('siswa.index', compact('siswa', 'jumlah_siswa'));
     }
@@ -23,8 +24,25 @@ class SiswaController extends Controller
     }
 
     public function store(Request $request){
-        Siswa::create($request->all());
-        return redirect('siswa');
+        $input = $request->all();
+
+        $validator = Validator::make($input, [
+            'nisn' => 'required|string|size:9|unique:siswa,nisn',
+            'nama' => 'required|string|max:30',
+            'tanggal_lahir' => 'required|date',
+            'jenis_kelamin' => 'required|in:L,P',
+        ]);
+
+        if ($validator->fails()){
+            return redirect('siswa/create')
+                ->withInput()
+                ->withErrors($validator);
+        }
+
+        else{
+            Siswa::create($input);
+            return redirect('siswa');
+        }
     }
 
     public function edit($id){
@@ -34,7 +52,22 @@ class SiswaController extends Controller
 
     public function update($id, Request $request){
         $siswa = Siswa::findOrFail($id);
-        $siswa->update($request->all());
+        $input = $request->all();
+
+        $validator = Validator::make($input, [
+            'nisn' => 'required|string|size:9|unique:siswa,nisn,' .$request->input('id'),
+            'nama' => 'required|string|max:30',
+            'tanggal_lahir' => 'required|date',
+            'jenis_kelamin' => 'required|in:L,P',
+        ]);
+
+        if ($validator->fails()){
+            return redirect('siswa/' .$id. '/edit')
+                ->withInput()
+                ->withErrors($validator);
+        }
+
+        $siswa->update($input);
         return redirect('siswa');
     }
 
