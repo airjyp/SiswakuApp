@@ -13,4 +13,16 @@ class Siswa extends Model
         'tanggal_lahir',
         'jenis_kelamin'
     ];
+
+    protected $dates = ['tanggal_lahir'];
+
+    // public function setNamaAttribute($nama){
+    //     return strtolower($nama);
+    // }
+
+    public function getNamaAttribute($nama){
+        return ucwords($nama);
+    } //Accessor
+
+
 }

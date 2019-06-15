@@ -43,4 +43,12 @@ class SiswaController extends Controller
         $siswa->delete();
         return redirect('siswa');
     }
+
+    public function dateMutator(){
+        $siswa = Siswa::findOrFail(4);
+        $tanggal_lahir = $siswa->tanggal_lahir->format('d-m-Y');
+        $ulang_tahun = $siswa->tanggal_lahir->addYears(50)->format('d-m-Y');
+        return "Siswa <strong>{$siswa->nama}</strong> lahir pada <strong>{$tanggal_lahir}</strong>. <br>
+        Ulang tahun ke-50 akan jatuh pada <strong>{$ulang_tahun}</strong> ";
+    }
 }

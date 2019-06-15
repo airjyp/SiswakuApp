@@ -58,6 +58,9 @@ We would like to extend our thanks to the following sponsors for funding Laravel
 - [Understand.io](https://www.understand.io/)
 - [Abdel Elrafa](https://abdelelrafa.com)
 - [Hyper Host](https://hyper.host)
+- sudo /etc/init.d/apache2 stop
+- sudo /opt/lampp/lampp start
+
 
 ## Contributing
 
