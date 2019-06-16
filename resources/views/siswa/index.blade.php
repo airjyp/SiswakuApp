@@ -12,6 +12,7 @@
                         <th>Nama</th>
                         <th>Tanggal Lahir</th>
                         <th>Jenis Kelamin</th>
+                        <th>Telepon</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -22,6 +23,7 @@
                             <td> {{ $list_siswa->nama }} </td>
                             <td> {{ $list_siswa->tanggal_lahir->format('d-m-Y') }} </td>
                             <td> {{ $list_siswa->jenis_kelamin }} </td>
+                            <td> {{ !empty($list_siswa->telepon->nomor_telepon) ? $list_siswa->telepon->nomor_telepon : '-' }} </td>
                             <td>
                                 <div class="box-button">
                                     {{ link_to('siswa/' .$list_siswa->id, 'Detail', ['class' => 'btn btn-success btn-sm']) }}
